@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.example.com/interface/books/GetBooksImpl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.example.com/interface/books/GetBooksImpl/Service" xmlns:ns="http://www.example.com/xsd/books" xmlns:ns1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" schemaLocation="/SharedResources/Schema/oasis-200401-wss-wssecurity-secext-1.0.xsd"/>
+    <wsdl:import namespace="http://www.example.com/interface/books/GetBooksImpl/Service" location="/SharedResources/WSDL/BooksService.wsdl"/>
+    <pd:name>Client/WSClient-MapDynamicUsernameToken.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>42</pd:startX>
+    <pd:startY>74</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1710200138130</pd:targetNamespace>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>230</pd:x>
+        <pd:y>141</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <service>pfx2:QueryBooksByAuthor</service>
+            <servicePort>SOAPEventSource</servicePort>
+            <operation>GetBooks</operation>
+            <soapAction>/Service/QueryBooksByAuthor</soapAction>
+            <endpointURL>http://localhost:9191/Service/QueryBooksByAuthor</endpointURL>
+            <timeoutType>Seconds</timeoutType>
+            <authScheme>NONE</authScheme>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <ns:Author>
+                    <xsl:value-of select="&quot;Vivek Ranadive&quot;"/>
+                </ns:Author>
+                <headers>
+                    <Header.Security>
+                        <ns1:Security>
+                            <ns1:UsernameToken>
+                                <ns1:Username>
+                                    <xsl:value-of select="'t'"/>
+                                </ns1:Username>
+                                <ns1:Password>
+                                    <xsl:value-of select="'t'"/>
+                                </ns1:Password>
+                            </ns1:UsernameToken>
+                        </ns1:Security>
+                    </Header.Security>
+                </headers>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
