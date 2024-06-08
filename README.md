@@ -1,1 +1,2 @@
-# bw5-dynamic-usernametoken
+# Mapping WS-Security UsernameToken credentials dynamically in TIBCO ActiveMatrix BusinessWorks™ 5
+Project accompanying the article [Mapping WS-Security UsernameToken credentials dynamically in TIBCO ActiveMatrix BusinessWorks™ 5](https://community.tibco.com/articles/tibco-activematrix-businessworks/mapping-ws-security-usernametoken-credentials-dynamically-in-tibco-activematrix-businessworks5/) in [TIBCO Community](https://community.tibco.com).
